@@ -1,0 +1,50 @@
+PaIRS - version 0.2.2
+Particle Image Reconstruction Software
+(C) 2024 Gerardo Paolillo & Tommaso Astarita.
+All rights reserved.
+email: etfd@unina.it
+****************************************
+PIV analysis (C:/Users/win10/Documents/sinmec/PIV sintetico/Particle_Tracking/PIV vitor/imagens_salvas/out_PaIRS/out.pairs_piv)
+PaIRS-v0.2.2_Windows-win10_2024/10/23-09:37:04_proc_11304-9640_a19ae79a-2be4-4799-87b8-40bc5449203d
+Last modified date: 2024/10/23 at 09:37:05
+
+
+------------------------------------
+               OUTPUT               
+------------------------------------
+Imagem0_A.png-Imagem0_B.png
+It    IW      #IW        #Vect/#Tot      %       CC       CC(avg)   DC%
+ -2 128x128   17x2         29/34       85.3  -0.0100104  0.3574937   0.0
+ -1  64x64    73x14       967/1022     94.6  0.3785430  0.5799712   0.0
+  0  32x32   148x29      4176/4292     97.3  0.6704369  0.7966303  68.5
+  1  32x32   148x29      4206/4292     98.0  0.8734789  0.8832697  18.3
+  2  32x32   148x29      4215/4292     98.2  0.8909562  0.8982666  11.0
+
+
+------------------------------------
+          PROGRESS status          
+------------------------------------
+Percentage of pairs
+          processed:   100.00%
+          remaining:   0.00%
+     without errors:   100.00%
+        with errors:   0.00%
+
+Time
+     of the process:   0:00:01.206
+           per pair:   0:00:01.206
+         to the end:   0:00:00.000
+
+Multi processing
+          PIV Cores:   12
+   processing units:   1
+
+------------------------------------
+            ERROR report            
+------------------------------------
+There were no errors in the current process!
+
+
+*Further information:
+--- Output ---
+Files with the same root name already exist in the selected output folder!
