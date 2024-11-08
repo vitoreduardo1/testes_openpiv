@@ -1,46 +1,43 @@
-def test ():
+def test_og ():
     import pandas as pd
     import numpy as np
     from scipy.interpolate import griddata
 
 
-
-    df = pd.read_csv(r"C:\Users\win10\Documents\sinmec\openpiv\output\OpenPIV_results_16_output\field_A0000.txt", delimiter='\t',skipfooter=0,skiprows=0,header=0, engine='python')
- #   df = pd.read_csv("exp1_001.txt", delimiter='\t',skipfooter=0,skiprows=0,header=0, engine='python')
+    df = pd.read_csv('vonkarman.csv', delimiter=',', skipinitialspace=True)
+    #df = pd.read_csv('exp1_001.txt', delimiter='\t',skipfooter=0,skiprows=0,header=0, engine='python')
 
     print(df.head())
 
-    #X = df['x-coordinate'].to_numpy()
-    #Y = df['y-coordinate'].to_numpy()
-    #P = df['total-pressure'].to_numpy()
-    #U = df['x-velocity'].to_numpy()
-    #V = df['y-velocity'].to_numpy()
+    X = df['x-coordinate'].to_numpy()
+    Y = df['y-coordinate'].to_numpy()
+    P = df['total-pressure'].to_numpy()
+    U = df['x-velocity'].to_numpy()
+    V = df['y-velocity'].to_numpy()
 
-    X = df['# x'].to_numpy()
-    Y = df['y'].to_numpy()
-  #  Y = Y[::-1]
-    U = df['u'].to_numpy()
-    V = df['v'].to_numpy()
- #   V = V * -1
+    #X = df['# x'].to_numpy()
+    #Y = df['y'].to_numpy()
+    #U = df['u'].to_numpy()
+    #V = df['v'].to_numpy()
 
-    #mascarax = X >= 0
-    #mascaray = (Y >= -2) & (Y <= 2)
-    #mascaraf = mascarax & mascaray
+    mascarax = X >= 0
+    mascaray = (Y >= -2) & (Y <= 2)
+    mascaraf = mascarax & mascaray
 
-    #X = X[mascaraf]
-    #Y = Y[mascaraf]
-    #U = U[mascaraf]
-    #V = V[mascaraf]
+    X = X[mascaraf]
+    Y = Y[mascaraf]
+    U = U[mascaraf]
+    V = V[mascaraf]
 
-    #X = X*1.64
-    #Y = Y*1.75
-    #y_min1 = Y.min()
+    #X = X*60
+    #Y = Y*60
+
+    y_min1 = Y.min()
+    x_min1 = X.min()
+    X = X + abs(x_min1)
+    Y = Y + abs(y_min1)
     print(Y.max())
     print(X.max())
-    #x_min1 = X.min()
-    #X = X + abs(x_min1)
-    #Y = Y + abs(y_min1)
-
     AR = (Y.max() - Y.min()) / (X.max() - X.min())
 
     N_x = 2000
@@ -61,7 +58,7 @@ def test ():
 #    U_interp_values[R <= 0.5] = np.nan
 
     V_interp_values = griddata(points, V, (xi, yi), method='linear')
- #   V_interp_values[R <= 0.5] = np.nan
+#    V_interp_values[R <= 0.5] = np.nan
 
     #np.savetxt("von_karman_cylinder.csv", xi,yi,U_interp_values,V_interp_values,P_interp_values], delimiter=","#)
 
@@ -77,18 +74,14 @@ def test ():
 
     ax = plt.gca()
     ax.axis('equal')
-    plt.title("open")
     mesh = plt.pcolormesh(xi, yi, U_interp_values, shading='auto')
     plt.colorbar(mesh,label='valores')
-    plt.savefig('U_values_open.png')
+    plt.savefig('U_values.png')
     plt.show()
 
     ax = plt.gca()
     ax.axis('equal')
-    plt.title("open")
     mesh = plt.pcolormesh(xi, yi, V_interp_values, shading='auto')
     plt.colorbar(mesh,label='valores')
-    plt.savefig('V_values_open.png')
+    plt.savefig('V_values.png')
     plt.show()
-
-#test()
