@@ -2,11 +2,36 @@ def main ():
     from openpiv import tools, pyprocess, validation, filters, scaling
     import numpy as np
     import matplotlib.pyplot as plt
-    import imageio
-
-    frame_a  = tools.imread( r"C:\Users\win10\Documents\sinmec\PIV sintetico\Particle_Tracking\PIV vitor\imagens_salvas\Imagem1_A.png" )
-    frame_b  = tools.imread( r"C:\Users\win10\Documents\sinmec\PIV sintetico\Particle_Tracking\PIV vitor\imagens_salvas\Imagem1_B.png" )
-
+#    import imageio
+    import pandas as pd
+    import cv2
+    image_a = cv2.imread(r"C:\Users\win10\Documents\sinmec\openpiv\imagens_salvas\Imagem0_A.png")
+    frame_a  = tools.imread( r"C:\Users\win10\Documents\sinmec\openpiv\imagens_salvas\Imagem0_A.png" )
+    frame_b  = tools.imread( r"C:\Users\win10\Documents\sinmec\openpiv\imagens_salvas\Imagem0_B.png" )
+    tf = pd.read_csv('vonkarman.csv', delimiter=',', skipinitialspace=True)
+    X_og = tf['x-coordinate'].to_numpy()
+    Y_og = tf['y-coordinate'].to_numpy()
+    mascarax = X_og >= 0
+    mascaray = (Y_og >= -2) & (Y_og <= 2)
+    mascaraf = mascarax & mascaray
+    X_og = X_og[mascaraf]
+    Y_og = Y_og[mascaraf]
+    y_min1 = Y_og.min()
+    x_min1 = X_og.min()
+    X_og = X_og + abs(x_min1)
+    Y_og = Y_og + abs(y_min1)
+    x_max_og = X_og.max()
+    y_max_og = Y_og.max()
+    h,l,er = image_a.shape
+    #print(x_max_og)
+    #print(l)
+    #print(h)
+    scaling_factor = l/x_max_og
+ #   scaling_factor = 59.5
+    seta = h/y_max_og
+    feta = (seta+scaling_factor)/2
+#   print(seta)
+#    print(scaling_factor)
     fig,ax = plt.subplots(1,2,figsize=(12,10))
     ax[0].imshow(frame_a,cmap=plt.cm.gray)
     ax[1].imshow(frame_b,cmap=plt.cm.gray)
@@ -48,7 +73,7 @@ def main ():
     # convert u,v to mm/sec
 
     x, y, u3, v3 = scaling.uniform(x, y, u2, v2,
-                                   scaling_factor = 64 ) # 96.52 microns/pixel diminui o vaalor aumenta o tamanho
+                                   scaling_factor = feta ) # 96.52 microns/pixel diminui o vaalor aumenta o tamanho
 
     # 0,0 shall be bottom left, positive rotation rate is counterclockwise
     x, y, u3, v3 = tools.transform_coordinates(x, y, u3, v3)
@@ -58,8 +83,10 @@ def main ():
 
     fig, ax = plt.subplots(figsize=(8,8))
     tools.display_vector_field('exp1_001.txt',
-                               ax=ax, scaling_factor=64,
+                               ax=ax, scaling_factor=feta,
                                scale=50, # scale defines here the arrow length
                                width=0.003, # width is the thickness of the arrow
                                on_img=True, # overlay on the image
-                               image_name=r"C:\Users\win10\Documents\sinmec\PIV sintetico\Particle_Tracking\PIV vitor\imagens_salvas\Imagem0_A.png");
+                               image_name=r"C:\Users\win10\Documents\sinmec\openpiv\imagens_salvas\Imagem0_A.png");
+    plt.close('all')
+#main()

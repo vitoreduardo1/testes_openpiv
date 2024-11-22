@@ -1,0 +1,15 @@
+numpy
+pandas
+pathlib
+h5py
+pyyaml
+tqdm
+matplotlib
+python-dotenv
+opencv-python
+PyQt5
+scipy
+pydantic
+ontolutils
+pivmetalib @ git+https://github.com/matthiasprobst/pivmetalib
+ontolutils @ git+https://github.com/matthiasprobst/ontology-utils
